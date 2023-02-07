@@ -47,7 +47,8 @@
 (defun google ()
   "Google."
   (interactive)
-  (google-search (read-minibuffer "Search In google: ")))
+  (google-search
+   (read-string "Search In google: " nil google-search-item google-search-item)))
 
 
 (defun google-search (str)

@@ -1,7 +1,7 @@
 import { bridgeAppRegist } from "https://deno.land/x/websocket_bridge@0.0.1/mod.ts";
 import puppeteer from "https://deno.land/x/puppeteer@16.2.0/mod.ts";
 
-const bridge = bridgeAppRegist(onMessage);
+const bridge = bridgeAppRegist(onMessageTry);
 
 const executablePath = await getEmacsVar("google-puppeteer-executable-path");
 
@@ -47,13 +47,23 @@ async function onMessage(message: string) {
       els.map((e) => ({
         title: e.innerText,
         link: decodeURI(e.parentNode.href),
-        summary: e.parentNode.parentNode.parentNode.parentNode.innerText,
+        //        summary: e.parentNode.parentNode.parentNode.parentNode.innerText,
       }))
     );
     const resultsStr = JSON.stringify(searchResults)
       .replaceAll('"', '\\"')
+      .replaceAll("'", '\\"')
       .replaceAll("#", "")
       .replaceAll("\n", "");
+    console.log(resultsStr);
     bridge.evalInEmacs(`(google-show-results \"${resultsStr}\")`);
+  }
+}
+
+async function onMessageTry(message: string) {
+  try {
+    await onMessage(message);
+  } catch (e: any) {
+    console.log(e);
   }
 }
