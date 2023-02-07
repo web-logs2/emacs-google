@@ -1,0 +1,5 @@
+#+title: Google Search in Emacs
+#+author: Qiqi Jin
+#+email: ginqi7@gmail.com
+
+[[file:images/2023-02-07_17-09-50_screenshot.png]]
