@@ -52,7 +52,7 @@ async function onMessage(message: string) {
     );
     const resultsStr = JSON.stringify(searchResults)
       .replaceAll('"', '\\"')
-      .replaceAll("'", '\\"')
+      .replaceAll("'", "")
       .replaceAll("#", "")
       .replaceAll("\n", "");
     console.log(resultsStr);
